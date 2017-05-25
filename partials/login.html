@@ -1,0 +1,65 @@
+<div class="wrap" id="wrapper" login-directive></div>
+
+<script type="text/javascript">
+    /*
+    function togglebutton() {
+        document.getElementById("row-offcanvas").classList.toggle("active");;
+    }*/
+
+    document.getElementById("wrapper").style.height = window.innerHeight + "px";
+
+    if (typeof (window.innerWidth) == 'number') {
+        myWidth = window.innerWidth;
+        myHeight = window.innerHeight;
+    } else {
+        if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+            myWidth = document.documentElement.clientWidth;
+            myHeight = document.documentElement.clientHeight;
+        } else {
+            if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                myWidth = document.body.clientWidth;
+                myHeight = document.body.clientHeight;
+            }
+        }
+    }
+
+    if(myWidth <= 768)
+        document.getElementById("wrapper").classList.add("menudisplayed");
+    else 
+        document.getElementById("wrapper").classList.remove("menudisplayed");
+
+
+
+
+
+    function togglebutton() {
+        document.getElementById("wrapper").classList.toggle("menudisplayed");
+    }
+
+    window.onresize = function(event) {
+        if (typeof (window.innerWidth) == 'number') {
+            myWidth = window.innerWidth;
+            myHeight = window.innerHeight;
+        } else {
+            if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+                myWidth = document.documentElement.clientWidth;
+                myHeight = document.documentElement.clientHeight;
+            } else {
+                if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                    myWidth = document.body.clientWidth;
+                    myHeight = document.body.clientHeight;
+                }
+            }
+        }
+
+        if(myWidth <= 768)
+            document.getElementById("wrapper").classList.add("menudisplayed");
+        else 
+            document.getElementById("wrapper").classList.remove("menudisplayed");
+
+
+        document.getElementById("wrapper").style.height = window.innerHeight + "px";
+    }
+
+
+</script>

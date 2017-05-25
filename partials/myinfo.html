@@ -1,0 +1,126 @@
+<div ui-view="topnav"></div>
+
+<div id="wrapper">
+    <!--BEGIN: Side bar-->
+    <div ui-view="nav"></div>
+    <!--END: Side bar-->
+    
+    <!--Main content-->
+    <div id="page-content-wrapper" style="overflow-y:scroll;height:100vh;">
+        <div class="container-fluid" style="margin-top:20px;">
+            <div class="row">
+                <div class="col col-lg-12">
+                    <!--<span class="togglemenu"><button class="btn btn-success" id="menu-toggle" onclick="togglebutton()">Toggle Menu</button></span>-->
+                    <!-- BEGIN: Salutation -->
+                    <div style="width:100%;margin-top:30px;font-size:1.2em;">
+                        {{displayName}}'s Information
+                    </div>
+                    <!-- END: Salutation -->
+                    
+                    <div>
+                        <span style="font-size:1.6em;">Update/Change Password</span>
+                    </div>
+                    <br>
+                    
+                    <div>
+                        
+                        
+                        <div class="panel panel-default">
+                          <div class="panel-body">
+                              <div class="col-md-6">
+                                <form>
+                                  <div class="form-group">
+                                    <label for="oldPass">Current Password</label>
+                                    <input type="text" class="form-control" ng-model="oldPass" placeholder="your password">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="newPass">New Password</label>
+                                    <input type="password" class="form-control" ng-model="newPass" placeholder="new password">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="newPassRe">Re-Enter New Password</label>
+                                    <input type="password" class="form-control" ng-model="newPassRe" placeholder="confirm new password">
+                                  </div>
+                                   <button id="btnSubmit" class="btn btn-primary btnSubmit" ng-click="resetPassword()" style="float:left;">Change</button>
+                                </form>
+                              </div>
+                          </div>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    <script type="text/javascript">
+        /*
+        function togglebutton() {
+            document.getElementById("row-offcanvas").classList.toggle("active");;
+        }*/
+        
+        if (typeof (window.innerWidth) == 'number') {
+            myWidth = window.innerWidth;
+            myHeight = window.innerHeight;
+        } else {
+            if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+                myWidth = document.documentElement.clientWidth;
+                myHeight = document.documentElement.clientHeight;
+            } else {
+                if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                    myWidth = document.body.clientWidth;
+                    myHeight = document.body.clientHeight;
+                }
+            }
+        }
+
+        if(myWidth <= 768)
+            document.getElementById("wrapper").classList.add("menudisplayed");
+        else 
+            document.getElementById("wrapper").classList.remove("menudisplayed");
+        
+        
+        
+        
+        
+        function togglebutton() {
+            document.getElementById("wrapper").classList.toggle("menudisplayed");
+        }
+        
+        window.onresize = function(event) {
+            if (typeof (window.innerWidth) == 'number') {
+                myWidth = window.innerWidth;
+                myHeight = window.innerHeight;
+            } else {
+                if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+                    myWidth = document.documentElement.clientWidth;
+                    myHeight = document.documentElement.clientHeight;
+                } else {
+                    if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                        myWidth = document.body.clientWidth;
+                        myHeight = document.body.clientHeight;
+                    }
+                }
+            }
+            
+            if(myWidth <= 768)
+                document.getElementById("wrapper").classList.add("menudisplayed");
+            else 
+                document.getElementById("wrapper").classList.remove("menudisplayed");
+        }
+    </script>
+    
+    
+    
+</div>
+
+
+    

@@ -1,0 +1,87 @@
+<div class="wrap" id="wrapper">
+
+    <div class="resetMotherDiv">
+        <div class="page_title" style="color:white;padding:15px;font-size:1.4em;">Request for Password Reset</div>
+        <div class="loginMainDiv">
+            <div class="centerbox" id="signin">
+                <div style="width:100%; font-size:2.8em; font-weight:lighter; align-content:center; text-align:center;color:white;">
+                    ShareMeToo
+                </div>
+                <div style="height:23px;">&nbsp;</div>
+                <form role="form" name="form1" autocomplete="off">
+                    <span style="color:white;font-weight:lighter;">To request for a password reset, please enter your account email address below and click on the send button.</span>
+                    <div style="height:20px;">&nbsp;</div>
+                    <input type="text" id="txtemail" ng-model="txtemail" placeholder="Username" required />
+                    <div style="height:20px;">&nbsp;</div>
+                    <button id="btnLogin" href class="loginButtonClient" ng-click="doRequestPasswordReset()">SEND</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+    
+<script type="text/javascript">
+    /*
+    function togglebutton() {
+        document.getElementById("row-offcanvas").classList.toggle("active");;
+    }*/
+
+    document.getElementById("wrapper").style.height = window.innerHeight + "px";
+
+    if (typeof (window.innerWidth) == 'number') {
+        myWidth = window.innerWidth;
+        myHeight = window.innerHeight;
+    } else {
+        if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+            myWidth = document.documentElement.clientWidth;
+            myHeight = document.documentElement.clientHeight;
+        } else {
+            if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                myWidth = document.body.clientWidth;
+                myHeight = document.body.clientHeight;
+            }
+        }
+    }
+
+    if(myWidth <= 768)
+        document.getElementById("wrapper").classList.add("menudisplayed");
+    else 
+        document.getElementById("wrapper").classList.remove("menudisplayed");
+
+
+
+
+
+    function togglebutton() {
+        document.getElementById("wrapper").classList.toggle("menudisplayed");
+    }
+
+    window.onresize = function(event) {
+        if (typeof (window.innerWidth) == 'number') {
+            myWidth = window.innerWidth;
+            myHeight = window.innerHeight;
+        } else {
+            if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+                myWidth = document.documentElement.clientWidth;
+                myHeight = document.documentElement.clientHeight;
+            } else {
+                if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                    myWidth = document.body.clientWidth;
+                    myHeight = document.body.clientHeight;
+                }
+            }
+        }
+
+        if(myWidth <= 768)
+            document.getElementById("wrapper").classList.add("menudisplayed");
+        else 
+            document.getElementById("wrapper").classList.remove("menudisplayed");
+
+
+        document.getElementById("wrapper").style.height = window.innerHeight + "px";
+    }
+
+
+</script>
+    

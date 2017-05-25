@@ -1,0 +1,101 @@
+<div class="wrap" id="wrapper">
+    
+    <div class="loginMotherDiv">
+        <div class="page_title" style="color:white;padding:15px;font-size:1.4em;"><a ui-sref="home" style="color:white;text-decoration:underline;cursor:pointer;">Home</a> / Register User</div>
+        <div class="loginMainDiv" style="height:435px;">
+            <img src="./images/logo.png" style="width:350px;" />
+            <div style="height:15px;">&nbsp;</div>
+            <div class="centerbox" id="signin">
+                <form role="form" name="form1">
+                    <table style="width:100%;border:none;">
+                        <tr>
+                            <td style="border:none;"><input type="text" id="txtemail" ng-model="txtemail" placeholder="E-mail" ></td>
+                        </tr>
+                        <tr><td style="border:none;">&nbsp;</td></tr>
+                        <tr>
+                            <td style="border:none;"><input type="password" id="password" ng-model="txtPassword" placeholder="Password" ></td>
+                        </tr>
+                        <tr><td style="border:none;">&nbsp;</td></tr>
+                        <tr>
+                            <td style="border:none;"><input type="password" id="cpassword" ng-model="txtReTypePassword" placeholder="Retype Password" ></td>
+                        </tr>
+                        <tr><td style="border:none;">&nbsp;</td></tr>
+                        <tr><td style="text-align:right;border:none;"><button id="btnLogin" href class="loginButtonClient" ng-click="doRegisterUser()">SAVE</button></td></tr>
+                        <tr><td style="border:none;">&nbsp;</td></tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    /*
+    function togglebutton() {
+        document.getElementById("row-offcanvas").classList.toggle("active");;
+    }*/
+
+    document.getElementById("wrapper").style.height = window.innerHeight + "px";
+
+    if (typeof (window.innerWidth) == 'number') {
+        myWidth = window.innerWidth;
+        myHeight = window.innerHeight;
+    } else {
+        if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+            myWidth = document.documentElement.clientWidth;
+            myHeight = document.documentElement.clientHeight;
+        } else {
+            if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                myWidth = document.body.clientWidth;
+                myHeight = document.body.clientHeight;
+            }
+        }
+    }
+
+    if(myWidth <= 768)
+        document.getElementById("wrapper").classList.add("menudisplayed");
+    else 
+        document.getElementById("wrapper").classList.remove("menudisplayed");
+
+
+
+
+
+    function togglebutton() {
+        document.getElementById("wrapper").classList.toggle("menudisplayed");
+    }
+
+    window.onresize = function(event) {
+        if (typeof (window.innerWidth) == 'number') {
+            myWidth = window.innerWidth;
+            myHeight = window.innerHeight;
+        } else {
+            if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+                myWidth = document.documentElement.clientWidth;
+                myHeight = document.documentElement.clientHeight;
+            } else {
+                if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                    myWidth = document.body.clientWidth;
+                    myHeight = document.body.clientHeight;
+                }
+            }
+        }
+
+        if(myWidth <= 768)
+            document.getElementById("wrapper").classList.add("menudisplayed");
+        else 
+            document.getElementById("wrapper").classList.remove("menudisplayed");
+
+
+        document.getElementById("wrapper").style.height = window.innerHeight + "px";
+    }
+
+
+</script>
+

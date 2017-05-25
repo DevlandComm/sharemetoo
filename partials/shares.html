@@ -1,0 +1,417 @@
+<div ui-view="topnav"></div>
+
+<div id="wrapper">
+    
+    <!--<div ui-view="nav"></div>-->
+    
+    <!--Main content-->
+    <div id="centerMain" class="container" style="width:100%;">
+        <div class="row" style="background:white;padding-left:20px;padding-right:20px;padding-top:20px;padding-bottom:8px;">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <table style="width:100%;" class="tblsalutation">
+                    <tr>
+                        <td style="width:60px;background:white;"><img src="{{mypic}}" style="width:50px;height:50px;border-radius:50%;" /></td>
+                        <td style="background:white;">
+                            <span style="font-size:1.4em;color:#686767;"> Hello {{displayName}}, Welcome Back!</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div style="float:right;">
+                    <table style="width:400px;height:45px;" class="tblsalutation">
+                        <tr>
+                            <td style="text-align:right;width:200px;background:white;">
+                                <a href style="font-size:1.2em;color:#c5216e;" ng-click="showInviteUser()">Invite Friends</a>
+                            </td>
+                            <td style="text-align:right;width:200px;background:white;"><a href ng-click="showAddSubscription()" style="font-size:1.2em;color:#c5216e;">Add Subscription</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!--BEGIN: Middle content-->
+        <div class="container" style="width:99%;">
+            <div class="row">
+                <div class="col-md-10 col-sm-12">
+                <br>
+                <span class="subscription_button">Subscriptions</span>
+                <br>
+                <br>
+                </div>
+                <div class="col-md-2 hidden-xs hidden-sm">
+                    <br>
+                    <span style="font-size:1.3em;color:#838383;">My Network</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-sm-12">
+                    
+                    <!-- ROW -->
+                    <div class="row" ng-repeat="m in matrix">
+                        
+                        <span ng-repeat="item in m">
+                            
+                            
+                            <!-- Leaf box-->
+                            <div class="col-md-6 col-sm-12 leaf_box">
+                                <div class="firstleaf_table">
+
+                                    <div style="display:table-row;">
+                                        <div style="display:table-cell;">
+                                            <div class="title">{{item.title}}</div>
+                                            <i class="fa fa-trash deletebutton" ng-click="deleteThis(item)"></i>
+                                            <i class="fa fa-pencil editbutton" ng-click="showEditSubscription(item)"></i>
+                                            <br>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div style="display:table-row;">
+                                        <div style="display:table-cell;">
+                                            <table class="leaftable">
+                                                <tr>
+                                                    <th style="width:100px;">Username: </th>
+                                                    <td>{{item.uname}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Password: </th>
+                                                    <td>{{item.pw}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>URL: </th>
+                                                    <td>{{item.sharedurl }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Description: </th>
+                                                    <td>
+                                                        <div class="leaf_description">
+                                                            {{item.description }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div style="display:table-row;">
+                                        <div style="display:table-cell;">
+                                            <br>
+                                            <i class="fa fa-plus-circle btn_share" ng-click="addFriendsToSubscription(item.idno)"></i>
+                                            <div class="userlistdiv">
+                                                <!--<ul class="userlist">
+                                                    <li ng-repeat="u in sharedUsers" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                                                        <img src="images/profile-icon.png" alt="{{u.firstname}}" />
+                                                        <span ng-show="hoverEdit" class="tooltiptext" id={{u.id_shared_with}}>{{u.firstname}}</span>
+                                                    </li>    
+                                                </ul>-->
+                                                <ul class="userlist">
+                                                    <li ng-repeat="u in sharedUsers" style="text-align:center;" ng-show="u.id_shared_item == item.idno">
+                                                        <table>
+                                                            <tr>
+                                                                <td><img src="{{u.imgurl}}" alt="{{u.firstname}}" class="sharedwith" /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span style="font-size:0.6em;">{{u.firstname}}</span></td>
+                                                            </tr>
+                                                        </table>
+                                                    </li>    
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- END: Leaf box-->
+                            
+                        </span>
+                        
+                        
+                        
+                    </div>
+                    <!-- END: ROW -->
+                    
+                </div>
+                
+                
+                
+                <!-- Third column - User Listing -->
+                <div class="col-md-2 hidden-xs hidden-sm" style="background:white;padding-top:15px;padding-bottom:10px;">
+                    <input type="text" ng-model="search_from_all" placeholder="Search Friends" style="width:100%;background-color:lightgray;border:0px;height:30px;" />
+                    <br><br>
+                    <ul class="userlist2">
+                        <span ng-repeat="f in allFriends | filter:search_from_all">
+                            <li><img src="{{f.imgurl}}" /> &nbsp;{{f.firstname}}</li>
+                        </span>
+                    </ul>
+                    
+                    <!--<ul class="userlist2">
+                        <li><img src="images/profile-icon.png" /> &nbsp;Antonio</li>
+                        <li><img src="images/profile-icon.png" /> &nbsp;Jerome</li>
+                        <li><img src="images/profile-icon.png" /> &nbsp;Nana</li>
+                    </ul>-->
+                    
+                </div>
+                <!-- END: Third column - User Listing -->
+                
+            </div>
+        </div>
+        <!--END: Middle content-->
+        
+    </div>
+    
+    
+    <!--BEGIN: Loading circle-->
+    <div class="center-div" id="divProgress">
+        <!--http://preloaders.net/en/search/circle-->
+        <div style="height:10px;">&nbsp;</div>
+        <div class="loader"></div>
+        <div style="height:10px;">&nbsp;</div>
+        Loading Projects...
+    </div>
+    <!--END: Loading circle-->
+    
+    
+    
+    
+    
+    <div id="modal" class="modal">
+        <div class="modal-dialog animated" style="width:500px;top:100px;">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <strong>ADD SUBSCRIPTION</strong>
+                    </div>
+
+                    <div class="modal-body" style="border-width:1px;overflow:auto;overflow-x:hidden;height:225px;">
+                        
+                        <div style="width:97%; margin: 0 auto;">
+                            <form name="frm_new_subscription">
+                                <table class="leaftable">
+                                    <tr>
+                                        <th style="width:100px;">Title: </th>
+                                        <td><input type="text" id="txtTitle" ng-model="tTitle" placeholder="Enter title" style="width:100%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:100px;">Username: </th>
+                                        <td><input type="text" id="txtUserName" ng-model="tUserName" placeholder="Enter username" style="width:100%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Password: </th>
+                                        <td><input type="password" id="txtPassword" ng-model="tPassword" placeholder="Enter password" style="width:100%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>URL: </th>
+                                        <td><input type="url" id="txtURL" ng-model="tURL" placeholder="Enter URL" style="width:100%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Description: </th>
+                                        <td><textarea id="txtDescription" cols="49" rows="3" style="border-color:lightgray;" ng-model="tDescription" placeholder="Enter description"></textarea></td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                            
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <!--<span class="spedit">--><!--<button class="btn-small colorRedBtn btn" type="button" onclick="modal.close();">Close</button>--><!--</span>-->
+                        <span class="spinputboxes">
+                            <button class="btn-small colorRedBtn btn" type="button" onclick="modal.close();">Cancel</button>
+                            <button class="btn-small colorBlueBtn btn" type="button" ng-click="saveSubscription()">Save</button>
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    <div id="modaledit" class="modal">
+        <div class="modal-dialog animated" style="width:500px;top:100px;">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <strong>EDIT SUBSCRIPTION</strong>
+                    </div>
+
+                    <div class="modal-body" style="border-width:1px;overflow:auto;overflow-x:hidden;height:225px;">
+                        
+                        <div style="width:97%; margin: 0 auto;">
+                            <form name="frm_new_subscription">
+                                <table class="leaftable">
+                                    <tr>
+                                        <th style="width:100px;">Title: </th>
+                                        <td><input type="text" id="txteTitle" ng-model="teTitle" placeholder="Enter title" style="width:100%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:100px;">Username: </th>
+                                        <td><input type="text" id="txteUserName" ng-model="teUserName" placeholder="Enter username" style="width:100%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Password: </th>
+                                        <td><input type="password" id="txtePassword" ng-model="tePassword" placeholder="Enter password" style="width:100%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>URL: </th>
+                                        <td><input type="url" id="txteURL" ng-model="teURL" placeholder="Enter URL" style="width:100%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Description: </th>
+                                        <td><textarea id="txteDescription" cols="49" rows="3" style="border-color:lightgray;" ng-model="teDescription" placeholder="Enter description"></textarea></td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                            
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <!--<span class="spedit">--><!--<button class="btn-small colorRedBtn btn" type="button" onclick="modal.close();">Close</button>--><!--</span>-->
+                        <span class="spinputboxes">
+                            <button class="btn-small colorRedBtn btn" type="button" onclick="modaledit.close();" autofocus>Cancel</button>
+                            <button class="btn-small colorBlueBtn btn" type="button" ng-click="saveEditedSubscription()">Save</button>
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- BEGIN: Add Friends to Subscription -->
+    <div id="modaladdfriendstosubscription" class="modal">
+        <div class="modal-dialog animated" style="width:500px;top:100px;">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <center><strong>ADD FRIENDS TO SUBSCRIPTION</strong></center>
+                        <br>
+                        <div style="width:100%;text-align:center;">
+                            <input type="text" placeholder="Search friends" ng-model="search_friends" style="padding-left:20px;width:80%;height:30px;border-radius:20px;border:1px solid gray;" />
+                        </div>
+                        
+                    </div>
+
+                    <div class="modal-body" style="border-width:1px;overflow:auto;overflow-x:hidden;height:225px;">
+                        
+                        <div style="width:97%; margin: 0 auto;">
+                        
+                            <ul class="userlist2">
+                                <span ng-repeat="f in sharedUsersAndOthers | filter:search_friends">
+                                    <li>
+                                        <img src="{{f.imgurl}}" />
+                                        <input class="nano" id="{{f.firstname}}{{f.lastname}}" type="checkbox" ng-model="userSharedWith.selected[f.userid]" ng-change="shareUnshareItem(f.userid)" ng-checked="f.checked">
+                                        <label for="{{f.firstname}}{{f.lastname}}">{{f.firstname}} {{f.lastname}}</label>
+                                    </li>
+                                </span>
+                            </ul>
+                        </div>
+                            
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <div style="width:100%;text-align:center;">
+                            <input type="text" placeholder="Not listed above? Invite by email" ng-model="txtInviteByEmail" style="width:80%;" />
+                        </div>
+                        <br>
+                        <span class="spinputboxes">
+                            <button class="btn-small colorRedBtn btn" type="button" onclick="modaladdfriendstosubscription.close();" autofocus>Close</button>
+                            <button class="btn-small colorBlueBtn btn" type="button" ng-click="inviteUser()">Invite New Members</button>
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- END: Add Friends to Subscription -->
+    
+    
+
+
+
+
+    <!-- BEGIN: Invite Friends -->
+    <div id="modalinvite" class="modal">
+        <div class="modal-dialog animated" style="width:500px;top:100px;">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <center><strong>INVITE FRIENDS</strong></center>
+                        <br>
+                        <div style="width:100%;text-align:center;">
+                            <input type="text" placeholder="Type name to search..." ng-model="search_friend_to_invite" ng-change="searchUsersToBeInvited()" style="padding-left:20px;width:80%;height:30px;border-radius:20px;border:1px solid gray;" />
+                        </div>
+                    </div>
+
+                    <div class="modal-body" style="border-width:1px;overflow:auto;overflow-x:hidden;height:200px;">
+                        
+                        <div style="width:97%; margin: 0 auto;">
+                            <ul class="userlist2">
+                                <span ng-repeat="f in OtherUsersToBeInvited | filter:search_friend_to_invite">
+                                    <li>
+                                        <img src="{{f.imgurl}}" />
+                                        
+                                        <label for="{{f.firstname}}{{f.lastname}}">{{f.firstname}} {{f.lastname}}</label>
+                                    </li>
+                                </span>
+                            </ul>
+                        </div>
+                            
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <span class="spinputboxes">
+                            <button class="btn-small colorRedBtn btn" type="button" onclick="modalinvite.close();" autofocus>Close</button>
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- END: Invite Friends -->
+    
+    
+    
+    
+    
+    
+    <style type="text/css">
+        sweet-alert {z-index: 1000;}
+    </style>
+    <script type="text/javascript">
+        
+        var tbl = document.getElementsByClassName("firstleaf_table");
+        var divs = document.getElementsByClassName("userlistdiv");
+        
+        var i;
+        for (i = 0; i < divs.length; i++) {
+            divs[i].style.width = (tbl[0].getBoundingClientRect().width-80) + "px";
+        }
+        
+        window.onresize = function(event) { 
+            
+            var tbl = document.getElementsByClassName("firstleaf_table");
+            var divs = document.getElementsByClassName("userlistdiv");
+
+            var i;
+            for (i = 0; i < divs.length; i++) {
+                divs[i].style.width = (tbl[0].getBoundingClientRect().width-80) + "px";
+            }
+            
+        }
+        
+        
+    </script>
+    
+    
+</div>
+

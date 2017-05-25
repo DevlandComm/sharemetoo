@@ -1,0 +1,31 @@
+{
+  "name": "mdr-angular-file",
+  "version": "1.0.5",
+  "description": "File Upload Drag and Drop",
+  "main": [
+    "dist/mdr-file.css",
+    "dist/mdr-file.js"
+  ],
+  "authors": [
+    "Alfredo Barron"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "bootstrap",
+    "file",
+    "upload",
+    "draganddrop",
+    "directive",
+    "component"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.7"
+  }
+}

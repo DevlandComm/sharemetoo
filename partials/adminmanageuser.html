@@ -1,0 +1,398 @@
+<div ui-view="topnav"></div>
+
+<div id="wrapper" style="background: #fff">
+    
+    <div ui-view="nav"></div>
+    
+    
+    <!--Main content-->
+    <div style="margin-left:80px;overflow-x:scroll;" id="centerMain">
+        <span id="bcmanageusers" style="float:left;margin-top:10px;padding-left:15px;"><a ui-sref="home">Home</a> / Manage Users</span>
+        <div style="height:5px;">&nbsp;</div>
+        <div style="height:40px;">&nbsp;</div>
+        
+        
+        
+        <div style="width:360px;margin: 0 auto;padding-bottom:30px;position: relative;top: 50%;transform: translateY(-50%)">
+            
+            <table style="width:100%;border:0px solid;">
+                <tr>
+                    <td align="center" style="font-size: 1.5em;border:0px solid;background-color:white;">
+                        <div class="hexagon" ng-click="showResetPassword()">
+                            <i class="fa fa-user-secret fa-2x"></i>
+                            <p style="font-size:0.7em;">Password</p>
+                        </div>    
+                    </td>
+                    <td style="border:0px solid;background-color:white;"><div style="width:20px;">&nbsp;</div></td>
+                    <td align="center" style="font-size: 1.5em;border:0px solid;background-color:white;">
+                        <span class="admincontrol">
+                        <div class="hexagon" ng-click="showAddUser()">
+                            <i class="fa fa-user-plus fa-2x"></i>
+                            <p style="font-size:0.7em;">Add User</p>
+                        </div>
+                        </span>
+                    </td>
+                    <td style="border:0px solid;background-color:white;"><div style="width:20px;">&nbsp;</div></td>
+                    <td align="center" style="font-size: 1.5em;border:0px solid;background-color:white;">
+                        <div class="hexagon" ng-click="showEditUser()">
+                            <i class="fa fa-info-circle fa-2x"></i>
+                            <p style="font-size:0.7em;">User Info</p>
+                        </div>    
+                    </td>
+                </tr>
+            </table>
+            
+            
+            
+        </div>
+          
+    </div>
+    
+    
+    <!--BEGIN: Loading circle-->
+    <div class="center-div" id="divProgress">
+        <!--http://preloaders.net/en/search/circle-->
+        <div style="height:10px;">&nbsp;</div>
+        <div class="loader"></div>
+        <div style="height:10px;">&nbsp;</div>
+        Loading Information...
+    </div>
+    <!--END: Loading circle-->
+    
+    
+    
+    
+    
+    <!--BEGIN: Reset Password modal window-->
+    <div id="modalresetpassword" class="modal">
+        <div class="modal-dialog animated modalresetpassworddialog" style="width:700px;">
+            <div class="modal-content" style="margin-top:100px;width:700px;">
+                    <div class="modal-header">
+                        <strong>Change Password</strong>
+                    </div>
+
+                    <div class="modal-body" style="border-width:1px;">
+                        <form role="form" name="form1">
+                        <table class="tbldetails">
+                            <tr>
+                                <th style="padding:15px;">Old Password</th>
+                                <td style="padding:15px;">
+                                    <input type="email" id="txtOldPassword" style="width:95%;height:35px;" />&nbsp;<span style="color:red;">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="padding:15px;">New Password</th>
+                                <td style="padding:15px;">
+                                    <input type="text" id="txtNewPassword" style="width:95%;height:35px;" />&nbsp;<span style="color:red;">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th  style="padding:15px;">Re-enter Password</th>
+                                <td style="padding:15px;">
+                                    <input type="text" id="txtConfirmPassword" style="width:95%;height:35px;" />&nbsp;<span style="color:red;">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><span style="color:red;font-style:italics;float:right;">* = required fields</span></td>
+                            </tr>
+                        </table> 
+                        
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button class="btn-small colorBlueBtn btn" type="button" ng-click="saveNewPassword()">Save</button>
+                        <button class="btn-small colorRedBtn btn" type="button" onclick="modalresetpassword.close();">Cancel</button>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+    <!--END: Reset Password modal window-->
+    
+    
+    
+    
+    
+    
+    <!--BEGIN: Add User modal window-->
+    <div id="modaladduser" class="modal">
+        <div class="modal-dialog animated modaladduserdialog" style="width:700px;">
+            <div class="modal-content" style="width:700px;">
+                    <div class="modal-header">
+                        <strong>Invite New User</strong>
+                    </div>
+                    <form role="form" name="form1">
+                    <div class="modal-body" style="border-width:1px;">
+                        <div id="errEmail" style="color:red;font-size:0.9em;display:none;">* required</div>
+                        <div id="errInvalidEmail" style="color:red;font-size:0.9em;display:none;">* Invalid Email format</div>
+                        <table class="tbldetails">
+                            <tr>
+                                <th style="padding:15px;">E-Mail</th>
+                                <td style="padding:15px;">
+                                    <input type="text" id="email" style="width:95%;height:35px;" ng-model="email" required ng-change="onEmailChange()" />&nbsp;<span style="color:red;">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="padding:15px;">First Name</th>
+                                <td style="padding:15px;">
+                                    <input type="text" id="fname" style="width:95%;height:35px;" ng-model="fname" required />&nbsp;<span style="color:red;">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th  style="padding:15px;">Last Name</th>
+                                <td style="padding:15px;">
+                                    <input type="text" id="lname" style="width:95%;height:35px;" ng-model="lname" required />&nbsp;<span style="color:red;">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th  style="padding:15px;">Role</th>
+                                <td style="padding:15px;">
+                                    <select ng-model="drroles" style="width:95%;font-size:3.7em;">
+                                        <option ng-repeat="x in userroles" value="{{x.iduserroles}}">{{x.description}}</option>
+                                    </select>&nbsp;<span style="color:red;">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="border:0px;text-align:center;">
+                                                DIVISIONS
+                                            </td>
+                                            <td style="border:0px;"></td>
+                                            <td style="border:0px;text-align:center;">
+                                                ASSIGNED TO USER
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border:0px;text-align:center;">
+                                                <select size="6" id="actions_list" style="width:200px;font-size:1.3em;" multiple>
+                                                    <option ng-repeat="x in divisions" value="{{x.id}}">{{x.name}}</option>
+                                                </select>
+                                            </td>
+                                            <td style="border:0px;text-align:center;color:#0089C4;">
+                                                <i class="fa fa-caret-square-o-right fa-2x" style="cursor:pointer;" ng-click="moveRight()"  id="btnToRight"></i><br><br>
+                                                <i class="fa fa-caret-square-o-left fa-2x" style="cursor:pointer;" ng-click="moveLeft()" id="btnToLeft"></i>
+                                            </td>
+                                            <td style="border:0px;text-align:center;">
+                                                <select size="6" id="destination_list" name="destination_list" ng-model="selectedDivisions" style="width:200px;font-size:1.3em;" multiple>
+                                                    
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><span style="color:red;font-style:italics;float:right;">* = required fields</span></td>
+                            </tr>
+                        </table> 
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button class="btn-small colorBlueBtn btn" href ng-click="sendInvite()">Send Invite</button>
+                        <button class="btn-small colorRedBtn btn" type="button" onclick="modaladduser.close();">Cancel</button>
+                    </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+    <!--END: Add User modal window-->
+        
+        
+        
+        
+    <!--BEGIN: Edit User modal window-->
+    <div id="modaledituser" class="modal">
+        <div class="modal-dialog animated modaledituserdialog" style="width:700px;">
+            <div class="modal-content" style="width:700px;">
+                    <div class="modal-header">
+                        <strong>Edit User</strong>
+                    </div>
+                    <form role="form" name="form1">
+                    <div class="modal-body" style="border-width:1px;">
+                        <div id="errEmail2" style="color:red;font-size:0.9em;display:none;">* required</div>
+                        <div id="errInvalidEmail2" style="color:red;font-size:0.9em;display:none;">* Invalid Email format</div>
+                        <table class="tbldetails">
+                            <tr>
+                                <th style="padding:15px;">E-Mail</th>
+                                <td style="padding:15px;">
+                                    <select ng-model="selecteduser" id="drpusers" style="width:95%;font-size:3.7em;" ng-change="loadUserDetail()">
+                                        <option ng-repeat="x in users" value="{{x.userid}}">{{x.DisplayAs}} ({{x.email}})</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="padding:15px;">First Name</th>
+                                <td style="padding:15px;">
+                                    <input type="text" id="editfname" style="width:95%;height:35px;" ng-model="editfname" required />&nbsp;<span style="color:red;">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th  style="padding:15px;">Last Name</th>
+                                <td style="padding:15px;">
+                                    <input type="text" id="editlname" style="width:95%;height:35px;" ng-model="editlname" required />&nbsp;<span style="color:red;">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th  style="padding:15px;">Role</th>
+                                <td style="padding:15px;">
+                                    <select ng-model="dreditroles" style="width:95%;font-size:3.7em;" id="dreditroles">
+                                        <option ng-repeat="x in userroles" value="{{x.iduserroles}}">{{x.description}}</option>
+                                    </select>&nbsp;<span style="color:red;">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="border:0px;text-align:center;">
+                                                DIVISIONS
+                                            </td>
+                                            <td style="border:0px;"></td>
+                                            <td style="border:0px;text-align:center;">
+                                                ASSIGNED TO USER
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border:0px;text-align:center;">
+                                                <select size="6" id="actions_list2" style="width:200px;font-size:1.3em;" multiple>
+                                                    <!--<option ng-repeat="x in divisions" value="{{x.id}}">{{x.name}}</option>-->
+                                                </select>
+                                            </td>
+                                            <td style="border:0px;text-align:center;color:#0089C4;">
+                                                <i class="fa fa-caret-square-o-right fa-2x" style="cursor:pointer;" ng-click="moveRightEdit()"  id="btnEditToRight"></i><br><br>
+                                                <i class="fa fa-caret-square-o-left fa-2x" style="cursor:pointer;"  ng-click="moveLeftEdit()" id="btnEditToLeft"></i>
+                                            </td>
+                                            <td style="border:0px;text-align:center;">
+                                                <select size="6" id="destination_list2" name="destination_list2" ng-model="selectedDivisions2" style="width:200px;font-size:1.3em;" multiple>
+                                                    
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><span style="color:red;font-style:italics;float:right;">* = required fields</span></td>
+                            </tr>
+                        </table> 
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button class="btn-small colorBlueBtn btn" href ng-click="updateUser()">Update</button>
+                        <button class="btn-small colorRedBtn btn" type="button" onclick="modaledituser.close();">Cancel</button>
+                    </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+    <!--END: Edit User modal window-->
+    
+    
+    
+    
+    
+    
+    <style type="text/css">
+        sweet-alert {z-index: 1000;}
+    </style>
+    <script type="text/javascript">
+        /*
+        function togglebutton() {
+            document.getElementById("row-offcanvas").classList.toggle("active");;
+        }*/
+        
+        document.getElementById("wrapper").style.height = window.innerHeight + "px";
+        
+        if (typeof (window.innerWidth) == 'number') {
+            myWidth = window.innerWidth;
+            myHeight = window.innerHeight;
+        } else {
+            if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+                myWidth = document.documentElement.clientWidth;
+                myHeight = document.documentElement.clientHeight;
+            } else {
+                if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                    myWidth = document.body.clientWidth;
+                    myHeight = document.body.clientHeight;
+                }
+            }
+        }
+        
+        document.getElementById("centerMain").style.height = (window.innerHeight - 100) + "px";
+
+        // Adjut the center table height
+        //document.getElementById("fbody").style.height = (myHeight - 163) + "px";
+        
+        if(myWidth <= 768) {
+            document.getElementById("wrapper").classList.add("menudisplayed");
+            document.getElementById("centerMain").style.marginLeft = "0px"; // Adjust the center div
+        }
+        else {
+            document.getElementById("wrapper").classList.remove("menudisplayed");
+            document.getElementById("centerMain").style.marginLeft = "80px"; // Adjust the center div
+        }
+        
+        //Adjust the width of the Project details modal window
+        document.querySelector("div.modal-dialog").style.width = (myWidth-100) + "px";
+        document.querySelector("div.modal-dialog.modalresetpassworddialog").style.width = "700px";
+        document.querySelector("div.modal-dialog.modaladduserdialog").style.width = "700px";
+        document.querySelector("div.modal-dialog.modaledituserdialog").style.width = "700px";
+        
+//        document.querySelector("div.modal-dialog.modalpermitdialog").style.width = "700px";
+//        document.querySelector("div.modal-dialog.modalissuesdialog").style.width = "700px";
+//        document.querySelector("div.modal-content").style.height = (myHeight - 40) + "px";
+//        document.querySelector("div.modal-body").style.height = (myHeight - 150) + "px";
+        
+        
+        function togglebutton() {
+            document.getElementById("wrapper").classList.toggle("menudisplayed");
+        }
+        
+        window.onresize = function(event) {
+            if (typeof (window.innerWidth) == 'number') {
+                myWidth = window.innerWidth;
+                myHeight = window.innerHeight;
+            } else {
+                if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+                    myWidth = document.documentElement.clientWidth;
+                    myHeight = document.documentElement.clientHeight;
+                } else {
+                    if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                        myWidth = document.body.clientWidth;
+                        myHeight = document.body.clientHeight;
+                    }
+                }
+            }
+        
+            
+            if(myWidth <= 768) {
+                document.getElementById("wrapper").classList.add("menudisplayed");
+                document.getElementById("centerMain").style.marginLeft = "0px"; // Adjust the center div
+            }
+            else  {
+                document.getElementById("wrapper").classList.remove("menudisplayed");
+                document.getElementById("centerMain").style.marginLeft = "80px"; // Adjust the center div
+            }
+            
+            document.getElementById("centerMain").style.height = (window.innerHeight - 100) + "px";
+            
+            document.getElementById("wrapper").style.height = window.innerHeight + "px";
+            
+            //Adjust the width of the Project details modal window
+            document.querySelector("div.modal-dialog").style.width = (myWidth-100) + "px";
+            document.querySelector("div.modal-dialog.modalresetpassworddialog").style.width = "700px";
+            document.querySelector("div.modal-dialog.modaladduserdialog").style.width = "700px";
+            document.querySelector("div.modal-dialog.modaledituserdialog").style.width = "700px";
+//            document.querySelector("div.modal-content").style.height = (myHeight - 40) + "px";
+//            document.querySelector("div.modal-body").style.height = (myHeight - 150) + "px";
+            
+        }
+      
+        
+    </script>
+    
+    
+</div>
+

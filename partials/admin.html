@@ -1,0 +1,23 @@
+<div ui-view="nav"></div>
+<section>
+    
+    <div class="page_title">Administration</div>
+    
+    
+    <div style="display:table;position:absolute;height:100%;width:100%;">
+        <div style="display:table-cell;vertical-align:middle;">
+            <div class="adminCenterBox">
+                <div>&nbsp;</div>
+                <a ui-sref="adminadduser"><div class="adminMenuButtons">ADD USER</div></a>
+                <div>&nbsp;</div>
+                <a ui-sref="adminmanageuser"><div class="adminMenuButtons">MANAGE USER(S)</div></a>
+                <div>&nbsp;</div>
+                <a ui-sref="audit"><div class="adminMenuButtons">AUDIT TRAIL</div></a>
+                <div>&nbsp;</div>
+            </div>
+        </div>
+    </div> 
+    
+    <div ui-view="footer"></div>
+    
+</section>

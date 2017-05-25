@@ -1,0 +1,21 @@
+<div class="loginMotherDiv">
+    <div class="loginMainDiv">
+        <div class="centerbox" id="signin">
+            <div style="width:100%; font-size:2.8em; font-weight:lighter; align-content:center; text-align:center;color:white;">
+            ShareMeToo
+            </div>
+            <br>
+            <form role="form" name="form1" autocomplete="off" ng-submit="login(user)">
+                <input ng-model="user.userName" type="text" id="txtUsername" name="txtUsername" placeholder="Username" required />
+                <div style="height:7px;">&nbsp;</div>
+                <input ng-model="user.userPassword" type="password" id="txtPassword" name="txtPassword" placeholder="Password" required />
+                <div style="height:20px;">&nbsp;</div>
+                <button id="btnLogin" href class="loginButtonClient" ng-click="login(user)">LOGIN</button>
+            </form>
+            <div style="margin:0 auto;padding-top:10px;align:center;text-align:center;">
+                <a ui-sref="requestpasswreset" style="color: red;font-size:12px;font-style:italic;">Forgot Password</a>
+            </div>
+        </div>
+        
+    </div>
+</div>
